@@ -16,11 +16,12 @@
         Amount
         <input type="number" name="amount">
     </label>
-    <select>
+    <select name="type">
         <option name="type" value="USD_to_VND">USD to VND</option>
         <option name="type" value="VND_to_USD">VND to USD</option>
     </select>
     <button type="submit">Convert</button>
 </form>
+Result: ${result}
 </body>
 </html>
