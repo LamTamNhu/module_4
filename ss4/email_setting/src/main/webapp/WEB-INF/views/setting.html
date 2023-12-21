@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Setting</title>
+</head>
+<body>
+<h1>Setting</h1>
+<form action="/setting">
+    <label>
+        Languages
+        <select name="language">
+            <option th:each="lang,stat:${language_list}" th:text="${lang}"></option>
+        </select>
+    </label>
+    <br>
+    <label>
+        Page Size: Show
+        <select name="page">
+            <option th:each="page,stat:${page_list}" th:text="${page}"></option>
+        </select>
+        emails per page
+    </label>
+    <br>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
