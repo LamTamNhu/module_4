@@ -47,4 +47,14 @@ public class Setting {
     public void setSignature(String signature) {
         this.signature = signature;
     }
+
+    @Override
+    public String toString() {
+        return "Setting{" +
+                "language='" + language + '\'' +
+                ", pageSize=" + pageSize +
+                ", spamFilter=" + spamFilter +
+                ", signature='" + signature + '\'' +
+                '}';
+    }
 }

@@ -1,5 +1,8 @@
 package com.email_setting.service;
 
+import com.email_setting.model.Setting;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import java.util.List;
 public class Service implements IService {
     private static final List<String> languages = new ArrayList<>();
     private static final List<Integer> pageSizes = new ArrayList<>();
+    private static Setting setting = new Setting();
 
     static {
         languages.add("English");
@@ -20,6 +24,11 @@ public class Service implements IService {
         pageSizes.add(25);
         pageSizes.add(50);
         pageSizes.add(100);
+
+        setting.setLanguage("English");
+        setting.setPageSize(25);
+        setting.setSpamFilter(true);
+        setting.setSignature("");
     }
 
     @Override
@@ -30,5 +39,14 @@ public class Service implements IService {
     @Override
     public List<Integer> getPageSizes() {
         return pageSizes;
+    }
+
+    @Override
+    public void saveSetting(Setting setting) {
+        Service.setting = setting;
+    }
+    @Override
+    public Setting getSetting() {
+        return setting;
     }
 }
