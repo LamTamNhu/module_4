@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Product;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,5 +51,18 @@ public class ProductService implements IProductService {
         if (productToRemove != null) {
             products.remove(productToRemove);
         }
+    }
+
+    @Override
+    public List<Product> search(String searchText) {
+        List<Product> result = new ArrayList<>();
+        for (Product p : products) {
+            if (StringUtils.containsIgnoreCase(p.getName(),searchText)) {
+                result.add(p);
+            } else if (StringUtils.containsIgnoreCase(p.getDescription(),searchText)) {
+                result.add(p);
+            }
+        }
+        return result;
     }
 }

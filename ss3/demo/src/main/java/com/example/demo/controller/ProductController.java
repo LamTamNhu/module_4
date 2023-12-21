@@ -55,15 +55,26 @@ public class ProductController {
                        @RequestParam String description,
                        @RequestParam String brand,
                        RedirectAttributes redirectAttributes) {
-        productService.edit(new Product(id,name,price,description,brand));
-        redirectAttributes.addFlashAttribute("message","Edit succeed!");
+        productService.edit(new Product(id, name, price, description, brand));
+        redirectAttributes.addFlashAttribute("message", "Edit succeed!");
         return "redirect:/";
     }
+
     @PostMapping("/remove")
     public String remove(@RequestParam int id,
-                         RedirectAttributes redirectAttributes){
+                         RedirectAttributes redirectAttributes) {
         productService.remove(id);
-        redirectAttributes.addFlashAttribute("message","Remove succeed!");
+        redirectAttributes.addFlashAttribute("message", "Remove succeed!");
         return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String search_text, Model model) {
+        List<Product> searchResult = productService.search(search_text);
+        model.addAttribute("products", searchResult);
+        for (Product p : searchResult) {
+            System.out.println(p);
+        }
+        return "search";
     }
 }
