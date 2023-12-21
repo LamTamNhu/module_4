@@ -28,7 +28,7 @@ public class ProductService implements IProductService {
     @Override
     public Product getProduct(int id) {
         for (Product p : products) {
-            if (p.getId().equals(id)){
+            if (p.getId().equals(id)) {
                 return p;
             }
         }
@@ -42,5 +42,13 @@ public class ProductService implements IProductService {
         productToEdit.setPrice(product.getPrice());
         productToEdit.setDescription(product.getDescription());
         productToEdit.setBrand(product.getBrand());
+    }
+
+    @Override
+    public void remove(int id) {
+        Product productToRemove = getProduct(id);
+        if (productToRemove != null) {
+            products.remove(productToRemove);
+        }
     }
 }

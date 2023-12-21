@@ -12,4 +12,6 @@ public interface IProductService {
     Product getProduct(int id);
 
     void edit(Product product);
+
+    void remove(int id);
 }

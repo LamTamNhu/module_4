@@ -59,4 +59,11 @@ public class ProductController {
         redirectAttributes.addFlashAttribute("message","Edit succeed!");
         return "redirect:/";
     }
+    @PostMapping("/remove")
+    public String remove(@RequestParam int id,
+                         RedirectAttributes redirectAttributes){
+        productService.remove(id);
+        redirectAttributes.addFlashAttribute("message","Remove succeed!");
+        return "redirect:/";
+    }
 }
