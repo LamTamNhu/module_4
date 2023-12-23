@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<h1 class="text-primary">List Products</h1>
+<form action="/add">
+    <button type="submit" class="btn btn-primary">Add Product</button>
+</form>
+<br>
+<form action="/search">
+    <input type="text" th:name="search_text">
+    <button class="btn btn-primary">Search</button>
+</form>
+<br>
+<table class="table table-bordered table-cell">
+    <thead>
+    <tr class="table-primary">
+        <th>Name</th>
+        <th>Price</th>
+        <th>Brand</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product,rowStat : ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.brand}"></td>
+        <td>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#view"
+                    th:attr="onclick=|sendToModalView('${product.name}','${product.price}','${product.description}','${product.brand}')|">
+                View
+            </button>
+        </td>
+        <td>
+            <form action="/edit">
+                <input type="hidden" th:name="id" th:value="${product.id}">
+                <button class="btn btn-primary" type="submit">Edit</button>
+            </form>
+        </td>
+        <td>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove"
+                    th:attr="onclick=|sendToModalRemove('${product.id}','${product.name}')|">Remove
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h2 class="text-primary" th:text="${message != null}?${message}"></h2>
+<footer th:replace="layout::footer"></footer>
+<!--Remove modal-->
+<div class="modal" id="remove" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm delete?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modal_text">Confirm deleted?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/remove" method="post">
+                    <input type="hidden" id="product_id" name="id">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--View modal-->
+<div class="modal" id="view" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="product_name">Product name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="view_text">View body</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous">
+</script>
+<script>
+    function sendToModalRemove(id, name) {
+        console.log(id, name);
+        document.getElementById("modal_text").innerText = "Confirm remove " + name + " ?";
+        document.getElementById("product_id").setAttribute("value", id);
+    }
+
+    function sendToModalView(name, price, description, brand) {
+        document.getElementById("product_name").innerText = name;
+        document.getElementById("view_text").innerHTML = "Price: $" + price + "<br>Description: " + description + "<br>Brand: " + brand;
+    }
+</script>
+</body>
+</html>
