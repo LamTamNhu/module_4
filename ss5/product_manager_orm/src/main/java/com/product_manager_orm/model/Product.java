@@ -1,11 +1,9 @@
 package com.product_manager_orm.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +14,13 @@ public class Product {
     private String brand;
 
     public Product() {
+    }
+
+    public Product(String name, Double price, String description, String brand) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.brand = brand;
     }
 
     public Product(Integer id, String name, Double price, String description, String brand) {

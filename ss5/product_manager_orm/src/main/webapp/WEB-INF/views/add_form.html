@@ -5,26 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/add" method="post">
-    <label>
-        id
-        <input type="number" name="id">
-    </label>
+<form action="/add" method="post" th:object="${product}">
     <label>
         product name
-        <input type="text" name="name">
+        <input type="text" th:field="*{name}">
     </label>
     <label>
         price
-        <input type="number" name="price">
+        <input type="number" th:field="*{price}">
     </label>
     <label>
         description
-        <input type="text" name="description">
+        <input type="text" th:field="*{description}">
     </label>
     <label>
         brand
-        <input type="text" name="brand">
+        <input type="text" th:field="*{brand}">
     </label>
     <button type="submit">Add Product</button>
 </form>
