@@ -27,6 +27,10 @@ public class BlogController {
     public Blog getNewBlog() {
         return new Blog();
     }
+    @ModelAttribute("categories_list")
+    public Iterable<Category> getAllCategories(){
+        return categoryService.findAll();
+    }
 
     @GetMapping("/")
     public String toHome(Model model) {
@@ -36,8 +40,7 @@ public class BlogController {
     }
 
     @GetMapping("/create")
-    public String toCreateForm(Model model) {
-        model.addAttribute("categories_list", categoryService.findAll());
+    public String toCreateForm() {
         return "form";
     }
 

@@ -4,10 +4,7 @@ import com.blog.model.Category;
 import com.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -25,6 +22,18 @@ public class CategoryController {
     public String add(Category category, RedirectAttributes redirectAttributes) {
         categoryService.save(category);
         redirectAttributes.addFlashAttribute("message", "New category added!");
+        return "redirect:/";
+    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        categoryService.deleteById(id);
+        return "redirect:/";
+    }
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id,
+                         @RequestParam String name){
+        Category updateCategory = new Category(id,name);
+        categoryService.save(updateCategory);
         return "redirect:/";
     }
 }
