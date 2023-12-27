@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="/layout :: head(title='Create New Blog')"></head>
+<head th:replace="/layout :: head(title='Blog form')"></head>
 <body>
 <header th:replace="layout::header"></header>
 <div class="container-fluid">
@@ -14,8 +14,10 @@
             <textarea id="body" class="form-control input-block-level" th:field="*{content}"></textarea>
         </div>
         <div class="mb-3">
-            <label for="cat" class="form-label">Tags</label>
-            <input id="cat" type="text" class="form-control" th:field="*{category}">
+            <div th:each="category:${categories_list}">
+                <label th:for="${#ids.next('categories')}" th:text="${category.name}"></label>
+                <input th:field="*{categories}" type="checkbox" th:value="${category}">
+            </div>
         </div>
         <button class="btn btn-primary" type="submit">Save</button>
         <button class="btn btn-warning" type="reset">Clear</button>

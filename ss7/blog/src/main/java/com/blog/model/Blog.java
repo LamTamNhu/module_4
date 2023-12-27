@@ -15,18 +15,23 @@ public class Blog {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
     @CreationTimestamp
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dateTimePublished;
     @ManyToMany
-    private Set<Category> category;
+    @JoinTable(
+            name = "blog_categories",
+            joinColumns = @JoinColumn(name="blog_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="cat_id",referencedColumnName = "id")
+    )
+    private Set<Category> categories;
 
     public Blog() {
     }
 
-    public Blog(String title, String content, Set<Category> category) {
+    public Blog(String title, String content, Set<Category> categories) {
         this.title = title;
         this.content = content;
-        this.category = category;
+        this.categories = categories;
     }
 
     public LocalDateTime getDateTimePublished() {
@@ -37,13 +42,6 @@ public class Blog {
         this.dateTimePublished = date;
     }
 
-    public Set<Category> getCategory() {
-        return category;
-    }
-
-    public void setCategory(Set<Category> category) {
-        this.category = category;
-    }
 
     public long getId() {
         return id;
@@ -67,5 +65,13 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

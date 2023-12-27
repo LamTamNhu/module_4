@@ -6,6 +6,10 @@
 <p>
     <a class="btn btn-primary" th:href="@{/create}">Create new blog</a>
 </p>
+<p>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveCatModal"
+       th:attr="onclick=|onCreateCatHandler()|">Create new category</a>
+</p>
 
 <div class="notify">
     <div th:if="${success}">
@@ -42,13 +46,10 @@
     </tr>
     </tbody>
 </table>
+<!--Delete modal-->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!--            <div class="modal-header">-->
-            <!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-            <!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-            <!--            </div>-->
             <form action="/remove" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="action" value="delete">
@@ -63,11 +64,31 @@
         </div>
     </div>
 </div>
+<!--Category save modal-->
+<div class="modal fade" id="saveCatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="category-modal" method="post" th:object="${category}">
+                <div class="modal-body">
+                    <label for="title" class="form-label">New category name</label>
+                    <input id="title" type="text" class="form-control" th:field="*{name}">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <h1 class="text-success" th:text="${message}"></h1>
 
 <script>
+    function onCreateCatHandler() {
+        document.getElementById("category-modal").setAttribute("action", "/category/add");
+    }
+
     function onDeleteHandler(id, name) {
-        console.log("Modal clicked!");
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").innerHTML = name;
     }

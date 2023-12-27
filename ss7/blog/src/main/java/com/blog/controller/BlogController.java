@@ -1,7 +1,9 @@
 package com.blog.controller;
 
 import com.blog.model.Blog;
+import com.blog.model.Category;
 import com.blog.service.IBlogService;
+import com.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BlogController {
     @Autowired
     IBlogService blogService;
+    @Autowired
+    ICategoryService categoryService;
 
     @ModelAttribute
-    Blog getBlog() {
+    public Category getNewCategory() {
+        return new Category();
+    }
+
+    @ModelAttribute
+    public Blog getNewBlog() {
         return new Blog();
     }
 
@@ -27,13 +36,15 @@ public class BlogController {
     }
 
     @GetMapping("/create")
-    public String toCreateForm() {
+    public String toCreateForm(Model model) {
+        model.addAttribute("categories_list", categoryService.findAll());
         return "form";
     }
 
     @PostMapping("/create")
     public String addBlog(Blog newBlog,
                           RedirectAttributes redirectAttributes) {
+        System.out.println(newBlog.getCategories());
         blogService.save(newBlog);
         redirectAttributes.addFlashAttribute("message", "New blog added!");
         return "redirect:/";
@@ -45,25 +56,28 @@ public class BlogController {
         model.addAttribute("blog", blog);
         return "view";
     }
+
     @GetMapping("/edit/{id}")
     public String toUpdateForm(@PathVariable Long id,
-                         Model model){
+                               Model model) {
         Blog blogToEdit = blogService.getById(id);
-        model.addAttribute("blog",blogToEdit);
+        model.addAttribute("blog", blogToEdit);
         return "form";
     }
+
     @PostMapping("/edit/{id}")
     public String save(Blog blog,
-                       RedirectAttributes redirectAttributes){
+                       RedirectAttributes redirectAttributes) {
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message","Edit succeed!");
+        redirectAttributes.addFlashAttribute("message", "Edit succeed!");
         return "redirect:/";
     }
+
     @PostMapping("/remove")
     public String remove(@RequestParam Long idDelete,
-                         RedirectAttributes redirectAttributes){
+                         RedirectAttributes redirectAttributes) {
         blogService.deleteById(idDelete);
-        redirectAttributes.addFlashAttribute("message","Delete succeed!");
+        redirectAttributes.addFlashAttribute("message", "Delete succeed!");
         return "redirect:/";
     }
 }
