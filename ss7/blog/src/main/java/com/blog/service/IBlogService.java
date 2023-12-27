@@ -8,4 +8,6 @@ public interface IBlogService {
     void save(Blog blog);
 
     Blog getById(Long id);
+
+    void deleteById(Long idDelete);
 }

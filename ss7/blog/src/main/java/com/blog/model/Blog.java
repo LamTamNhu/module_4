@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class Blog {
@@ -16,12 +17,13 @@ public class Blog {
     @CreationTimestamp
     @Column(nullable = false,updatable = false)
     private LocalDateTime dateTimePublished;
-    private String category;
+    @ManyToMany
+    private Set<Category> category;
 
     public Blog() {
     }
 
-    public Blog(String title, String content, String category) {
+    public Blog(String title, String content, Set<Category> category) {
         this.title = title;
         this.content = content;
         this.category = category;
@@ -35,11 +37,11 @@ public class Blog {
         this.dateTimePublished = date;
     }
 
-    public String getCategory() {
+    public Set<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Set<Category> category) {
         this.category = category;
     }
 

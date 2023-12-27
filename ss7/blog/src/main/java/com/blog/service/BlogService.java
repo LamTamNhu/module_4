@@ -24,4 +24,9 @@ public class BlogService implements IBlogService {
     public Blog getById(Long id) {
         return blogRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void deleteById(Long idDelete) {
+        blogRepository.deleteById(idDelete);
+    }
 }
