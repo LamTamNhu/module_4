@@ -42,9 +42,9 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public String addBlog(Blog newBlog,
+    public String addBlog(@ModelAttribute("blog") Blog newBlog,
                           RedirectAttributes redirectAttributes) {
-        System.out.println(newBlog.getCategories());
+        System.out.println("in post create");
         blogService.save(newBlog);
         redirectAttributes.addFlashAttribute("message", "New blog added!");
         return "redirect:/";
