@@ -27,6 +27,10 @@ public class BlogController {
     public Blog getNewBlog() {
         return new Blog();
     }
+    @ModelAttribute("categories_list")
+    public Iterable<Category> getAllCategories(){
+        return categoryService.findAll();
+    }
 
     @GetMapping("/")
     public String toHome(Model model) {
@@ -36,15 +40,14 @@ public class BlogController {
     }
 
     @GetMapping("/create")
-    public String toCreateForm(Model model) {
-        model.addAttribute("categories_list", categoryService.findAll());
+    public String toCreateForm() {
         return "form";
     }
 
     @PostMapping("/create")
-    public String addBlog(Blog newBlog,
+    public String addBlog(@ModelAttribute("blog") Blog newBlog,
                           RedirectAttributes redirectAttributes) {
-        System.out.println(newBlog.getCategories());
+        System.out.println("in post create");
         blogService.save(newBlog);
         redirectAttributes.addFlashAttribute("message", "New blog added!");
         return "redirect:/";

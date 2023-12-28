@@ -9,6 +9,9 @@
 <p>
     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveCatModal"
        th:attr="onclick=|onCreateCatHandler()|">Create new category</a>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewCategoriesModal">
+        View category list
+    </a>
 </p>
 
 <div class="notify">
@@ -82,6 +85,24 @@
     </div>
 </div>
 <h1 class="text-success" th:text="${message}"></h1>
+<!--View categories modal-->
+<div class="modal fade" id="viewCategoriesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <table>
+                <tr class="modal-body" th:each="category:${categories_list}">
+                    <td th:text="${category.name}"></td>
+                    <td><a class="btn btn-primary" th:attr="onclick=|onEditCatHandler('${category.id}')|">Edit</a></td>
+                    <td><a class="btn btn-danger" th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a></td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<h1 class="text-success" th:text="${message}"></h1>
 
 <script>
     function onCreateCatHandler() {
@@ -91,6 +112,11 @@
     function onDeleteHandler(id, name) {
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").innerHTML = name;
+    }
+
+    function onEditCatHandler(id) {
+        name = prompt("Enter new name");
+        location.href = "/category/update/" + id + "?name=" + name;
     }
 </script>
 <footer th:replace="/layout :: footer"></footer>

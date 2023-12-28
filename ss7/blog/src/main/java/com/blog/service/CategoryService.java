@@ -18,4 +18,9 @@ public class CategoryService implements ICategoryService {
     public Iterable<Category> findAll() {
         return categoryRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }
