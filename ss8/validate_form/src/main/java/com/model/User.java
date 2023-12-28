@@ -1,25 +1,47 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     @Size(min = 5,max = 45)
-    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$\n")
     private String firstName;
     @NotBlank
     @Size(min = 5,max = 45)
-    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$\n")
     private String lastName;
-    @Pattern(regexp = "/(84|0[3|5|7|8|9])+([0-9]{8})\\b/g")
+    @Pattern(regexp = "\\d{10}",message = "Phone input wrong!")
     private String phoneNumber;
     @Min(18)
     private Integer age;
-    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+    @Pattern(regexp = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$",message = "Email input wrong!")
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User(Long id, String firstName, String lastName, String phoneNumber, Integer age, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.email = email;
+    }
 
     public String getFirstName() {
         return firstName;

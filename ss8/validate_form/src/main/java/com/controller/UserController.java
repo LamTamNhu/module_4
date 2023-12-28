@@ -15,6 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @Autowired
     IUserService userService;
+    @GetMapping("/")
+    public String toHome(){
+        return "redirect:/user";
+    }
     @GetMapping("/user")
     public ModelAndView showForm() {
         ModelAndView modelAndView = new ModelAndView("/index");
