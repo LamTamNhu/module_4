@@ -8,5 +8,8 @@
     Published: <span th:text="${blog.dateTimePublished}"></span>
 </h3>
 <p th:text="${blog.content}"></p>
+<div th:each="cat_item:${cats}">
+    <p th:text="${cat_item.getCategory().name}"></p>
+</div>
 </body>
 </html>

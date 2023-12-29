@@ -18,6 +18,11 @@ public class BlogHasCategory {
     public BlogHasCategory() {
     }
 
+    public BlogHasCategory(Blog blog, Category category) {
+        this.blog = blog;
+        this.category = category;
+    }
+
     public BlogHasCategory(Long id, Blog blog, Category category) {
         this.id = id;
         this.blog = blog;

@@ -32,13 +32,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:attr="onclick=|window.location=@{/view/{id}(id=${blog.id})}|" th:each="blog,b : ${blogs}">
+    <tr th:each="blog,b : ${blogs}">
         <td th:text="${b.count}"></td>
         <td th:text="${blog.title}"></td>
         <td th:text="${blog.dateTimePublished}"></td>
-        <td><a class="btn btn-primary" th:href="@{/edit/{id}(id=${blog.id})}">
-            Edit
-        </a></td>
+        <td>
+            <a class="btn btn-info" th:href="@{/view/{id}(id=${blog.id})}"> View </a>
+        </td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/edit/{id}(id=${blog.id})}"> Edit </a>
+        </td>
         <td>
             <a type="button" th:attr="onclick=|onDeleteHandler('${blog.id}','${blog.title}')|" class="btn btn-danger"
                data-bs-toggle="modal" data-bs-target="#deleteModal">

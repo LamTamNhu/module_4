@@ -5,6 +5,8 @@ import com.blog.repository.IBlogHasCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BlogHasCategoryService implements IBlogHasCategoryService{
     @Autowired
@@ -13,4 +15,10 @@ public class BlogHasCategoryService implements IBlogHasCategoryService{
     public Iterable<BlogHasCategory> findAllById(long i) {
         return repository.findAllByBlog_Id(i);
     }
+
+    @Override
+    public void saveAll(List<BlogHasCategory> blogHasCategories) {
+        repository.saveAll(blogHasCategories);
+    }
+
 }
