@@ -32,7 +32,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="blog,b : ${blogs}">
+    <tr th:attr="onclick=|window.location=@{/view/{id}(id=${blog.id})}|" th:each="blog,b : ${blogs}">
         <td th:text="${b.count}"></td>
         <td th:text="${blog.title}"></td>
         <td th:text="${blog.dateTimePublished}"></td>
@@ -45,7 +45,6 @@
                 Delete
             </a>
         </td>
-        <td><a class="btn btn-info text-light" th:href="@{/view/{id}(id=${blog.id})}">View</a></td>
     </tr>
     </tbody>
 </table>
@@ -84,7 +83,6 @@
         </div>
     </div>
 </div>
-<h1 class="text-success" th:text="${message}"></h1>
 <!--View categories modal-->
 <div class="modal fade" id="viewCategoriesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

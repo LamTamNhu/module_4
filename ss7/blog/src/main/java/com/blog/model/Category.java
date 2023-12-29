@@ -1,18 +1,24 @@
 package com.blog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
     private String name;
+    @OneToMany(mappedBy = "category")
+    private List<BlogHasCategory> blogs;
+
+    public Category(Long id, String name, List<BlogHasCategory> blogs) {
+        this.id = id;
+        this.name = name;
+        this.blogs = blogs;
+    }
 
     public Category(String name) {
         this.name = name;
@@ -40,5 +46,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<BlogHasCategory> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<BlogHasCategory> blogs) {
+        this.blogs = blogs;
     }
 }

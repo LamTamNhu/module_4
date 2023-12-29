@@ -14,9 +14,9 @@
             <textarea id="body" class="form-control input-block-level" th:field="*{content}"></textarea>
         </div>
         <div class="mb-3">
-            <div th:each="category:${categories_list}">
+            <div th:each="category,loop:*{categories}">
                 <label th:for="${#ids.next('categories')}" th:text="${category.name}"></label>
-                <input th:field="*{categories}" type="checkbox" th:value="${category.id}">
+                <input th:field="*{categories[__${loop.index}__].category.name}" type="checkbox">
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Save</button>

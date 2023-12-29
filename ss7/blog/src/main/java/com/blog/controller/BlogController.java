@@ -1,7 +1,9 @@
 package com.blog.controller;
 
 import com.blog.model.Blog;
+import com.blog.model.BlogHasCategory;
 import com.blog.model.Category;
+import com.blog.service.IBlogHasCategoryService;
 import com.blog.service.IBlogService;
 import com.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class BlogController {
     IBlogService blogService;
     @Autowired
     ICategoryService categoryService;
+    @Autowired
+    IBlogHasCategoryService blogHasCategoryService;
 
     @ModelAttribute
     public Category getNewCategory() {
@@ -27,8 +31,9 @@ public class BlogController {
     public Blog getNewBlog() {
         return new Blog();
     }
+
     @ModelAttribute("categories_list")
-    public Iterable<Category> getAllCategories(){
+    public Iterable<Category> getAllCategories() {
         return categoryService.findAll();
     }
 
@@ -47,7 +52,10 @@ public class BlogController {
     @PostMapping("/create")
     public String addBlog(@ModelAttribute("blog") Blog newBlog,
                           RedirectAttributes redirectAttributes) {
-        System.out.println("in post create");
+        for (BlogHasCategory e : newBlog.getCategories()) {
+            System.out.println(e.getCategory().getName());
+            ;
+        }
         blogService.save(newBlog);
         redirectAttributes.addFlashAttribute("message", "New blog added!");
         return "redirect:/";

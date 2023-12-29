@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,22 +16,19 @@ public class Blog {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDateTime dateTimePublished;
-    @ManyToMany
-    @JoinTable(
-            name = "blog_categories",
-            joinColumns = @JoinColumn(name="blog_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="cat_id",referencedColumnName = "id")
-    )
-    private Set<Category> categories;
+    @OneToMany(mappedBy = "blog")
+    private List<BlogHasCategory> categories;
 
     public Blog() {
     }
 
-    public Blog(String title, String content, Set<Category> categories) {
+    public Blog(long id, String title, String content, LocalDateTime dateTimePublished, List<BlogHasCategory> categories) {
+        this.id = id;
         this.title = title;
         this.content = content;
+        this.dateTimePublished = dateTimePublished;
         this.categories = categories;
     }
 
@@ -67,11 +65,11 @@ public class Blog {
         this.content = content;
     }
 
-    public Set<Category> getCategories() {
+    public List<BlogHasCategory> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<BlogHasCategory> categories) {
         this.categories = categories;
     }
 }
