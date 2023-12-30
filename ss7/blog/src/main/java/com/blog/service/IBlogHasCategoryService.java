@@ -9,4 +9,5 @@ public interface IBlogHasCategoryService {
 
     void saveAll(List<BlogHasCategory> blogHasCategories);
 
+    void removeAllByBlogId(long id);
 }

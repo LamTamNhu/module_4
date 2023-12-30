@@ -21,4 +21,9 @@ public class BlogHasCategoryService implements IBlogHasCategoryService{
         repository.saveAll(blogHasCategories);
     }
 
+    @Override
+    public void removeAllByBlogId(long id) {
+        repository.deleteBlogHasCategoriesByBlog_Id(id);
+    }
+
 }

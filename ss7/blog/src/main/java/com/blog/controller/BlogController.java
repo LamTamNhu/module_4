@@ -8,6 +8,11 @@ import com.blog.service.IBlogHasCategoryService;
 import com.blog.service.IBlogService;
 import com.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +56,16 @@ public class BlogController {
     }
 
     @GetMapping("/")
-    public String toHome(Model model) {
-        Iterable<Blog> blogs = blogService.getAll();
+    public String toHome(@PageableDefault(value = 3, sort = "dateTimePublished", direction = Sort.Direction.DESC) Pageable pageable,
+                         @RequestParam @Nullable String title,
+                         Model model) {
+        System.out.println(pageable);
+        Page<Blog> blogs;
+        if (title != null && !title.isEmpty()) {
+            blogs = blogService.findAllByTitleContaining(title, pageable);
+        } else {
+            blogs = blogService.getAll(pageable);
+        }
         model.addAttribute("blogs", blogs);
         return "index";
     }
@@ -108,9 +121,15 @@ public class BlogController {
     }
 
     @PostMapping("/edit/{id}")
-    public String save(Blog blog,
+    public String save(Blog blog, @RequestParam("category") List<Category> newCategory,
                        RedirectAttributes redirectAttributes) {
         blogService.save(blog);
+        blogHasCategoryService.removeAllByBlogId(blog.getId());
+        List<BlogHasCategory> blogHasCategories = new ArrayList<>();
+        for (Category newCat : newCategory) {
+            blogHasCategories.add(new BlogHasCategory(blog, newCat));
+        }
+        blogHasCategoryService.saveAll(blogHasCategories);
         redirectAttributes.addFlashAttribute("message", "Edit succeed!");
         return "redirect:/";
     }
