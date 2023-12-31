@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import com.blog.model.BlogHasCategory;
+import com.blog.model.Category;
 import com.blog.repository.IBlogHasCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class BlogHasCategoryService implements IBlogHasCategoryService{
     @Override
     public void removeAllByBlogId(long id) {
         repository.deleteBlogHasCategoriesByBlog_Id(id);
+    }
+
+    @Override
+    public Iterable<BlogHasCategory> findAllBlogsByCategory(Category category) {
+        return repository.findAllByCategory(category);
     }
 
 }

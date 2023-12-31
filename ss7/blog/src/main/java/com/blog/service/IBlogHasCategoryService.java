@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import com.blog.model.BlogHasCategory;
+import com.blog.model.Category;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ public interface IBlogHasCategoryService {
     void saveAll(List<BlogHasCategory> blogHasCategories);
 
     void removeAllByBlogId(long id);
+
+    Iterable<BlogHasCategory> findAllBlogsByCategory(Category category);
 }

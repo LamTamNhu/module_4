@@ -56,7 +56,7 @@ public class BlogController {
     }
 
     @GetMapping("/")
-    public String toHome(@PageableDefault(value = 3, sort = "dateTimePublished", direction = Sort.Direction.DESC) Pageable pageable,
+    public String toHome(@PageableDefault(value = 3) Pageable pageable,
                          @RequestParam @Nullable String title,
                          Model model) {
         System.out.println(pageable);
@@ -66,7 +66,20 @@ public class BlogController {
         } else {
             blogs = blogService.getAll(pageable);
         }
+
+        String sortLink;
+        if (pageable.getSort().isUnsorted()) {
+            sortLink = "/?sort=dateTimePublished,asc";
+        } else {
+            Sort.Direction sortDirection = pageable.getSort().getOrderFor("dateTimePublished").getDirection();
+            if (sortDirection.isAscending()) {
+                sortLink = "/?sort=dateTimePublished,desc";
+            } else {
+                sortLink = "/?sort=dateTimePublished,asc";
+            }
+        }
         model.addAttribute("blogs", blogs);
+        model.addAttribute("sort", sortLink);
         return "index";
     }
 
@@ -140,5 +153,14 @@ public class BlogController {
         blogService.deleteById(idDelete);
         redirectAttributes.addFlashAttribute("message", "Delete succeed!");
         return "redirect:/";
+    }
+
+    @GetMapping("/category/{id}")
+    public String findBlogsByCategory(@PathVariable Long id,
+                                      Model model) {
+        Category category = categoryService.findById(id).orElse(null);
+        Iterable<BlogHasCategory> blogHasCategory = blogHasCategoryService.findAllBlogsByCategory(category);
+        model.addAttribute("blogs",blogHasCategory);
+        return "blogs_by_category";
     }
 }

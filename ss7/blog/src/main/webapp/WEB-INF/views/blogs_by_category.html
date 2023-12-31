@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head th:replace="/layout :: head(title='Blog List')"></head>
+<body>
+<header th:replace="layout::header"></header>
+<table class="table table-striped">
+    <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Publish Date</th>
+    </tr>
+    <tr th:each="blog,b:${blogs}">
+        <td th:text="${b.count}"></td>
+        <td th:text="${blog.getBlog().title}"></td>
+        <td th:text="${blog.getBlog().dateTimePublished}"></td>
+    </tr>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

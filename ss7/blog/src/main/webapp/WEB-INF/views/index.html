@@ -26,9 +26,10 @@
     <table id="blog">
         <thead>
         <tr>
-            <th>STT</th>
+            <th>No.</th>
             <th>Title</th>
-            <th>Publish Date</th>
+            <th><a class="text-decoration-none" th:href="${sort}">Publish
+                Date</a></th>
             <th></th>
             <th></th>
             <th></th>
@@ -102,13 +103,18 @@
 <div class="modal fade" id="viewCategoriesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <table>
-                <tr class="modal-body" th:each="category:${categories_list}">
-                    <td th:text="${category.name}"></td>
-                    <td><a class="btn btn-primary" th:attr="onclick=|onEditCatHandler('${category.id}')|">Edit</a></td>
-                    <td><a class="btn btn-danger" th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a></td>
-                </tr>
-            </table>
+            <div class="modal-body">
+                <table>
+                    <tr th:each="category:${categories_list}">
+                        <td><a class="text-decoration-none" th:href="@{/category/{id}(id=${category.id})}"
+                               th:text="${category.name}"></a></td>
+                        <td><a class="btn btn-primary" th:attr="onclick=|onEditCatHandler('${category.id}')|">Edit</a>
+                        </td>
+                        <td><a class="btn btn-danger" th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
             </div>
