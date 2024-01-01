@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid my-3">
+    <div class="row mb-3">
+        <div class="col-1">
+            <a class="btn btn-primary" href="/shopping-cart">Your cart</a>
+        </div>
+    </div>
+    <div class="row gx-5 align-items-center">
+        <div class="col-3">
+            <div class="card">
+                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7rbk0-lkvwg6she1xk68"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mã SP:4564</h5>
+                    <p class="card-text text-danger" th:text="'$'+${product.price}"></p>
+                    <a th:href="@{/add/__${product.id}__(action='show')}" class="btn btn-danger">Thêm vào giỏ hàng</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="container">
+                <div class="row">
+                    <h3 class="text-primary-emphasis" th:text="${product.name}"></h3>
+                </div>
+                <hr>
+                <div class="row bg-info-subtle">
+                    Đồng hồ không bao gồm bộ sạc, chỉ cần cắm nó vào phích cắm USB để sạc nó!!!
+
+                    Đồng hồ không bao gồm bộ sạc, chỉ cần cắm nó vào phích cắm USB để sạc nó!!!
+
+                    Đồng hồ không bao gồm bộ sạc, chỉ cần cắm nó vào phích cắm USB để sạc nó!!!
+
+
+                    Ghi chú:⭐⭐⭐Hầu hết hầu hết các đồng hồ thông minh không có bộ sạc hoặc pin nhỏ, khi bạn nhận được có
+                    thể cần sạc 40-50 phút, nó sẽ tự mở. Đừng nghĩ rằng sản phẩm bị hư hỏng!!!
+
+                    ⭐ Khi lần đầu tiên nhận được sản phẩm, trước tiên hãy sạc 40-50 phút nếu không bật được vì đã thiếu
+                    điện.
+
+                    ⭐ Vui lòng liên hệ với chúng tôi nếu sản phẩm có vấn đề về chất lượng, chúng tôi sẽ phát hành lại
+                    cho bạn
+
+
+                    App: Fitpro / Hryfine
+
+                    Đặc điểm:
+
+                    1.Chống thấm nước IP67: Nó hỗ trợ rửa tay, đi mưa, mặc bơi lội, đáp ứng nhu cầu hàng ngày (lưu ý:
+                    không thể đeo khi tắm nước nóng và xông hơi khô).
+
+                    2.Theo dõi sức khỏe: Theo dõi huyết áp, theo dõi nhịp tim, theo dõi giấc ngủ, nhắc nhở ít vận động.
+
+                    3.Chức năng thể thao tiêu chuẩn: Bước, calo, tính khoảng cách.
+
+                    4.Màn hình: 3 loại kiểu giao diện UI (công tắc nhấn và giữ giao diện chính), hiển thị thời gian,
+                    hiển thị ngày.
+
+                    5.Nhiều chế độ thể thao.
+
+                    6.Đẩy nhắc cuộc gọi và thông tin: kết nối với Fitpro APP, hiển thị cuộc gọi, tin nhắn văn bản và SNS
+                    (Twitter, Line, WhatsApp, Facebook, Line, KaKaoTalk, WeChat, QQ) và các thông báo khác; không bao
+                    giờ bỏ lỡ thông tin quan trọng.
+
+                    7.Các chức năng khác: Đồng hồ báo thức, đồng hồ bấm giờ, giơ tay lên để làm sáng màn hình, camera từ
+                    xa, tìm vòng đeo tay.
+
+                    Thông tin chi tiết:
+
+                    App: Fitpro / Hryfine
+
+                    Chất liệu vỏ: Hợp kim nhôm
+
+                    Chất liệu dây đeo: TPU
+
+                    Màn hình: Màn hình đầy màu sắc IPS 1,3 inch
+
+                    Chip: HS6620D
+
+                    Phiên bản Bluetooth: 4.0
+
+                    Lớp chống thấm nước: IP67 (lưu ý: không thể đeo cho tắm nước nóng và phòng xông hơi khô).
+
+                    Dung lượng pin: 100mAh
+
+                    Thời gian sạc: khoảng 2 giờ
+
+                    Thời gian làm việc: 5 ngày
+
+                    Thời gian chờ: khoảng 10 ngày
+
+                    Chế độ sạc: USB tích hợp
+
+                    Nút chức năng: Nút một chạm
+
+                    Hệ thống tương thích: Android 4.4 trở lên, IOS 8.0 trở lên.
+
+
+                    Làm thế nào để ghép nối với điện thoại của bạn?
+
+                    Mẹo: Sử dụng ứng dụng Fitpro thay vì kết nối trực tiếp với thiết bị qua Bluetooth.
+
+                    Hoặc bạn sẽ không thể đồng bộ hóa
+
+                    1.Tải xuống và cài đặt ứng dụng Fitpro trên điện thoại của bạn.
+
+                    2.Mở Bluetooth của điện thoại.
+
+                    3.Mở ứng dụng, nhấp vào Thiết bị: tìm kiếm thiết bị của bạn và nhấp vào nó.
+
+
+                    Ghi chú:
+
+                    1.Các thiết bị đeo được giám sát các hoạt động của con người thông qua các cảm biến điện tử và chúng
+                    ở cấp độ điện tử tiêu dùng.
+
+                    2.Nó là bình thường cho độ lệch nhất định. Người dùng nên xử lý dữ liệu một cách khách quan. Vui
+                    lòng không so sánh với thiết bị bệnh viện về việc đọc, nó KHÔNG phải là thiết bị y tế.
+
+                    ⭐⭐⭐3.Hầu hết hầu hết các đồng hồ thông minh không có bộ sạc hoặc pin nhỏ, khi bạn nhận được có thể
+                    cần sạc 40-50 phút, nó sẽ tự mở
+
+
+                    Gói hàng bao gồm:
+
+                    1 x đồng hồ
+
+                    1 x Hướng dẫn sử dụng
+
+                    Hoặc
+
+                    1 * Dây đồng hồ
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
