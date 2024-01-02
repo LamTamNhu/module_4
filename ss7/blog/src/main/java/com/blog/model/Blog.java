@@ -1,5 +1,6 @@
 package com.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Blog {
     @Column(updatable = false)
     private LocalDateTime dateTimePublished;
     @OneToMany(mappedBy = "blog")
+    @JsonBackReference
     private List<BlogHasCategory> categories;
 
     public Blog() {
