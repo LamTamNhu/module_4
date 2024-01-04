@@ -6,6 +6,7 @@ import com.blog.model.Category;
 import com.blog.service.IBlogHasCategoryService;
 import com.blog.service.IBlogService;
 import com.blog.service.ICategoryService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,8 @@ public class BlogRestController {
     }
 
     @GetMapping("/blogs")
-    public ResponseEntity<Iterable<Blog>> getAllBlogs(@PageableDefault(value = 3) Pageable pageable) {
+    public ResponseEntity<Iterable<Blog>> getAllBlogs(@PageableDefault(size = 3) Pageable pageable) {
+        System.out.println(pageable);
         Page<Blog> blogs = blogService.getAll(pageable);
         if (blogs == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -44,12 +46,22 @@ public class BlogRestController {
     }
 
     @GetMapping("/blogs/filter")
-    public ResponseEntity<List<Blog>> getBlogOfCategory(@RequestParam Long id) {
-        Category category = categoryService.findById(id).orElse(null);
-        Iterable<BlogHasCategory> blogHasCategories = blogHasCategoryService.findAllBlogsByCategory(category);
+    public ResponseEntity<?> getBlogOfCategory(@RequestParam @Nullable Long categoryId, @RequestParam @Nullable String title, @PageableDefault(size = 10) Pageable pageable) {
         List<Blog> blogs = new ArrayList<>();
-        for (BlogHasCategory e : blogHasCategories) {
-            blogs.add(e.getBlog());
+        if (categoryId != null) {
+            Category category = categoryService.findById(categoryId).orElse(null);
+            Iterable<BlogHasCategory> blogHasCategories = blogHasCategoryService.findAllBlogsByCategory(category);
+            for (BlogHasCategory e : blogHasCategories) {
+                blogs.add(e.getBlog());
+            }
+        }
+        Page<Blog> blogsByTitle;
+        if (title != null && !title.isEmpty()) {
+            blogsByTitle = blogService.findAllByTitleContaining(title, pageable);
+            return new ResponseEntity<>(blogsByTitle, HttpStatus.OK);
+        } else if (title != null) {
+            System.out.println("in search empty title");
+            return new ResponseEntity<>(blogService.getAll(pageable), HttpStatus.OK);
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
